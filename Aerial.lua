@@ -720,8 +720,10 @@ function aerial.chat.process(channel,text)
 	end
 	colortag = string.gsub(colortag, ":>", ":"..table.concat(aerial.config.backgroundcolor,",")..">")
 	 for i,v in string.gmatch(text,"%u%l+") do
-		if ndb and ndb.getcolor(i) and string.len(ndb.getcolor(i)) > 0 then
-			text = string.gsub(text,i,aerial.color2decho(ndb.getcolor(i))..i..colortag)
+		if ndb and ndb.getcolor(i) then
+			if string.len(ndb.getcolor(i)) > 0 then
+				text = string.gsub(text,i,aerial.color2decho(ndb.getcolor(i))..i..colortag)
+			end
 		end
 	 end
 	 local tstamp = ""
