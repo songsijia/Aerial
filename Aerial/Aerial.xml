@@ -896,8 +896,7 @@ send(matches[1],false)</script>
 				<name>aerial.load</name>
 				<packageName></packageName>
 				<script>function aerial.load()
-    location = getMudletHomeDir()
-    f = io.open(location.."\\Aerial\\Aerial.bin", 'rb')
+    f = io.open(aerial.config.directory.."Aerial.bin", 'rb')
     local bytecode = f:read('*all')
     f:close()
     loadstring(bytecode)()
@@ -915,6 +914,7 @@ aerial.chat = aerial.chat or {}
 				<name>aerial.config</name>
 				<packageName></packageName>
 				<script>aerial.config = {
+    directory = getMudletHomeDir().."/Aerial/",
     -- general options
     left = {width = "14%",height = "100%"}, -- how wide the left bar is compared to full screen
     right = {width = "26%",height = "100%"},

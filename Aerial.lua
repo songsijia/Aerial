@@ -6,7 +6,7 @@ aerial = aerial or {}
 aerial.windows = aerial.windows or {}
 aerial.oldWidth = 0
 aerial.oldHeight = 0
-
+aerial.config.directory = aerial.config.directory or getMudletHomeDir().."/Aerial/"
 aerial.chat = aerial.chat or {}
 
 function aerial.create()
@@ -216,9 +216,9 @@ function aerial.setStyleSheet()
 		for n,window in pairs(aerial.windows[group]["windowList"]) do
 			if window["windowList"][window.name.."_header"] and window["windowList"][window.name.."_header"]["setStyleSheet"] then
 				if aerial.config.images then
-					window["windowList"][window.name.."_header_left"]:setStyleSheet([[ background-color: rgba(0,0,0,0%); border-image: url(]]..getMudletHomeDir().."/Aerial/header_left.png"..[[)]])
-					window["windowList"][window.name.."_header"]:setStyleSheet([[ background-color: rgba(0,0,0,0%); font-family: Verdana; border-image: url(]]..getMudletHomeDir().."/Aerial/header_center.png"..[[)]])
-					window["windowList"][window.name.."_header_right"]:setStyleSheet([[ background-color: rgba(0,0,0,0%); border-image: url(]]..getMudletHomeDir().."/Aerial/header_right.png"..[[)]])
+					window["windowList"][window.name.."_header_left"]:setStyleSheet([[ background-color: rgba(0,0,0,0%); border-image: url(]]..aerial.config.directory.."header_left.png"..[[)]])
+					window["windowList"][window.name.."_header"]:setStyleSheet([[ background-color: rgba(0,0,0,0%); font-family: Verdana; border-image: url(]]..aerial.config.directory.."header_center.png"..[[)]])
+					window["windowList"][window.name.."_header_right"]:setStyleSheet([[ background-color: rgba(0,0,0,0%); border-image: url(]]..aerial.config.directory.."header_right.png"..[[)]])
 				else
 					window["windowList"][window.name.."_header"]:setStyleSheet(headerstyle)
 				end
@@ -253,7 +253,7 @@ function aerial.loadImages()
 		else
 			window = v["windowList"][v.name.."_header"]["windowList"][v.name.."_img"]
 		end
-			window:setStyleSheet([[ background-color: rgba(0,0,0,0%); border-image: url(]]..getMudletHomeDir().."/Aerial/"..v.name..".png"..[[)]])
+			window:setStyleSheet([[ background-color: rgba(0,0,0,0%); border-image: url(]]..aerial.config.directory..v.name..".png"..[[)]])
 	end
 end
 
@@ -371,7 +371,7 @@ function aerial.createStatusbar()
 	local img_width = aerial.windows.bottom:get_height()
 	for i,v in ipairs(aerial.statusbar.labels) do
 		Geyser.Label:new({name=v.."_img",x=x,y=0,width=25,height=25},statusbar)
-		statusbar.windowList[v.."_img"]:setStyleSheet([[  background-color: rgba(0,0,0,0%); border-image: url(]]..getMudletHomeDir().."/Aerial/"..v.."_img.png"..[[)]])
+		statusbar.windowList[v.."_img"]:setStyleSheet([[  background-color: rgba(0,0,0,0%); border-image: url(]]..aerial.config.directory..v.."_img.png"..[[)]])
 		x=x+25+1
 		local width = stats_widths[v]
 		Geyser.Label:new({name=v.."_info",x=x,y=0,width=width,height="100%"},statusbar)
@@ -506,9 +506,9 @@ end
 function aerial.daynight.setDay(bool)
 	local val
 	if bool then val = "day" else val = "night" end
-	aerial.daynight.bg:setStyleSheet([[  background-color: rgba(0,0,0,0%); background-image: url(]]..getMudletHomeDir().."/Aerial/"..val.."_bg.png"..[[)]])
-	aerial.daynight.icon:setStyleSheet([[  background-color: rgba(0,0,0,0%); border-image: url(]]..getMudletHomeDir().."/Aerial/"..val.."_icon.png"..[[)]])
-	aerial.daynight.clockicon:setStyleSheet([[  background-color: rgba(0,0,0,0%); border-image: url(]]..getMudletHomeDir().."/Aerial/"..val.."_icon.png"..[[)]])
+	aerial.daynight.bg:setStyleSheet([[  background-color: rgba(0,0,0,0%); background-image: url(]]..aerial.config.directory..val.."_bg.png"..[[)]])
+	aerial.daynight.icon:setStyleSheet([[  background-color: rgba(0,0,0,0%); border-image: url(]]..aerial.config.directory..val.."_icon.png"..[[)]])
+	aerial.daynight.clockicon:setStyleSheet([[  background-color: rgba(0,0,0,0%); border-image: url(]]..aerial.config.directory..val.."_icon.png"..[[)]])
 	aerial.daynight.isday = bool
 end
 
@@ -517,7 +517,7 @@ function aerial.populateStatusbar()
 	for i,v in ipairs(aerial.statusbar.gauges) do
 		aerial.gauges[v]["front"]:setStyleSheet(aerial.gaugestyles[aerial.config.vitalbartype][v])
 		aerial.gauges[v]["back"]:setStyleSheet(aerial.gaugestyles[aerial.config.vitalbartype]["bg"])
-		aerial.gauges[v.."_img"]:setStyleSheet([[  background-color: rgba(0,0,0,0%); border-image: url(]]..getMudletHomeDir().."/Aerial/"..v.."_img.png"..[[)]])
+		aerial.gauges[v.."_img"]:setStyleSheet([[  background-color: rgba(0,0,0,0%); border-image: url(]]..aerial.config.directory..v.."_img.png"..[[)]])
 	end
 end
 
@@ -588,7 +588,7 @@ function aerial.updateIndoors()
 	local windows = aerial.windows.bottom.windowList.stats_container.windowList
 	local v = gmcp.Room.Info.details[2] or "indoors"
 	if windows["indoors_img"] then
-		windows["indoors_img"]:setStyleSheet([[  background-color: rgba(0,0,0,0%); border-image: url(]]..getMudletHomeDir().."/Aerial/"..v.."_img.png"..[[)]])
+		windows["indoors_img"]:setStyleSheet([[  background-color: rgba(0,0,0,0%); border-image: url(]]..aerial.config.directory..v.."_img.png"..[[)]])
 	end
 end
 registerAnonymousEventHandler("gmcp.Room.Info","aerial.updateIndoors")
